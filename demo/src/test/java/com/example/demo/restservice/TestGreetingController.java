@@ -19,14 +19,19 @@ public class TestGreetingController {
     @Autowired
     private MockMvc mockMvc;
 
+    private void testGreeting(String url, String expected) throws Exception {
+        this.mockMvc.perform(get(url)).andDo(print()).andExpect(status().isOk()).andExpect(content().string(containsString(expected)));
+    }
+
     @Test
     public void testGreeting() throws Exception {
-        this.mockMvc.perform(get("/greeting")).andDo(print()).andExpect(status().isOk()).andExpect(content().string(containsString("Hello, World!")));
+        testGreeting("/greeting", "Hello, World!");
+
     }
 
     @Test
     public void testGreetingWithName() throws Exception {
-        this.mockMvc.perform(get("/greeting?name=Bob")).andDo(print()).andExpect(status().isOk()).andExpect(content().string(containsString("Hello, Bob!")));
+        testGreeting("/greeting?name=Bob", "Hello, Bob!");
     }
 
 }
