@@ -1,6 +1,6 @@
 package com.example.demo;
 
-import com.example.demo.consumingrest.Quote;
+import com.example.demo.consumingrest.Greeting;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -26,9 +26,9 @@ public class DemoApplication {
     @Bean
     public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
         return args -> {
-            Quote quote = restTemplate.getForObject(
-                    "https://gturnquist-quoters.cfapps.io/api/random", Quote.class);
-            log.info(quote.toString());
+            Greeting greeting = restTemplate.getForObject(
+                    "http://localhost:8081/greeting?name=Mohammad", Greeting.class);
+            log.info(greeting.toString());
         };
     }
 }
